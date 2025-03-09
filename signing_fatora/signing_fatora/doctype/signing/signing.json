@@ -1,0 +1,141 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-03-06 09:03:48.486680",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "device_section",
+  "device_number",
+  "get_token",
+  "prod_binary_token",
+  "prod_secret",
+  "private_key",
+  "invoice_section",
+  "invoice_number",
+  "sign",
+  "signing_response",
+  "sending_section",
+  "report",
+  "reporting_response",
+  "xml",
+  "qr"
+ ],
+ "fields": [
+  {
+   "fieldname": "device_section",
+   "fieldtype": "Section Break",
+   "label": "Device"
+  },
+  {
+   "fieldname": "device_number",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Device Number",
+   "options": "ZatcaDevice"
+  },
+  {
+   "fieldname": "get_token",
+   "fieldtype": "Button",
+   "label": "Get Token"
+  },
+  {
+   "fieldname": "prod_binary_token",
+   "fieldtype": "Text",
+   "hidden": 1,
+   "label": "Prod Binary Token",
+   "read_only": 1
+  },
+  {
+   "fieldname": "prod_secret",
+   "fieldtype": "Text",
+   "hidden": 1,
+   "label": "Prod Secret",
+   "read_only": 1
+  },
+  {
+   "fieldname": "private_key",
+   "fieldtype": "Text",
+   "hidden": 1,
+   "label": "Private Key",
+   "read_only": 1
+  },
+  {
+   "fieldname": "invoice_section",
+   "fieldtype": "Section Break",
+   "label": "Invoice"
+  },
+  {
+   "fieldname": "invoice_number",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Invoice Number",
+   "options": "Sales Invoice"
+  },
+  {
+   "fieldname": "sign",
+   "fieldtype": "Button",
+   "label": "sign"
+  },
+  {
+   "fieldname": "signing_response",
+   "fieldtype": "Text",
+   "hidden": 1,
+   "label": "Signing Response",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sending_section",
+   "fieldtype": "Section Break",
+   "label": "Sending"
+  },
+  {
+   "fieldname": "report",
+   "fieldtype": "Button",
+   "label": "Report"
+  },
+  {
+   "fieldname": "reporting_response",
+   "fieldtype": "Text",
+   "hidden": 1,
+   "label": "Reporting Response",
+   "read_only": 1
+  },
+  {
+   "fieldname": "xml",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "XML"
+  },
+  {
+   "fieldname": "qr",
+   "fieldtype": "Button",
+   "hidden": 1,
+   "label": "QR"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-03-06 10:14:51.014629",
+ "modified_by": "Administrator",
+ "module": "Signing Fatora",
+ "name": "signing",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

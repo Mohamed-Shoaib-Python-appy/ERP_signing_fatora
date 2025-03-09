@@ -1,0 +1,36 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"rY17BclTWu\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">signing</span>\",\"col\":12}}]",
+ "creation": "2025-03-06 09:00:42.240428",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "hide",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "signing_fatora",
+ "links": [],
+ "modified": "2025-03-06 09:22:21.205804",
+ "modified_by": "Administrator",
+ "module": "Signing Fatora",
+ "name": "signing_fatora",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 3.0,
+ "shortcuts": [
+  {
+   "doc_view": "List",
+   "label": "signing",
+   "link_to": "signing",
+   "type": "DocType"
+  }
+ ],
+ "title": "signing_fatora"
+}
