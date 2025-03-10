@@ -11,12 +11,14 @@ from signing_fatora.api.simplified_invoice_xml_generator import SimplifiedInvoic
 from signing_fatora.api.utilis import api_helper
 from lxml import etree
 
+
 @frappe.whitelist()
 def get_device_data(device_csid, token_data):
     res_binary_token = api_helper.get_binary_tokens(device_csid, token_data)
     print('res_binary_token: ', res_binary_token)
     json_decoded_response = json.loads(res_binary_token) 
     return json_decoded_response
+
 
 @frappe.whitelist()
 def generate_and_sign_invoice(prod_token, private_key, invoice_no):
@@ -54,6 +56,7 @@ def generate_and_sign_invoice(prod_token, private_key, invoice_no):
     json_load = json.loads(json_payload)
     print('json_load: ', json_load)
     return json_load
+
 
 @frappe.whitelist()
 def get_invoice_report(device_csid, token_data, invoice_no):
@@ -99,3 +102,12 @@ def get_invoice_report(device_csid, token_data, invoice_no):
     # util.save_json_to_file(response_json, "response_payload.json")
 
     return handle_response(invoice, doc, response_json, payload, clearance=False, incrementor_test=None)
+
+
+@frappe.whitelist()
+def generate_invoice_qr(invoice_no):
+    doc = frappe.get_doc("Sales Invoice", invoice_no)
+    if hasattr(doc, "get_qr_code"):
+        qr_code = doc.get_qr_code()
+        return qr_code
+    return None

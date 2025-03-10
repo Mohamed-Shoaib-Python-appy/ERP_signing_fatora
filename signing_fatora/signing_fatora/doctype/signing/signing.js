@@ -25,9 +25,9 @@ frappe.ui.form.on('signing', {
         if (frm.doc.reporting_response) {
             frm.toggle_display('xml', true);
         }
-        // if (frm.doc.reporting_response) {
-        //     frm.toggle_display('qr', true);
-        // }
+        if (frm.doc.reporting_response) {
+            frm.toggle_display('qr', true);
+        }
         if (frm.doc.custom_qr_code_html) {
             frm.toggle_display('custom_qr_code_html', true);
         }
@@ -195,31 +195,53 @@ frappe.ui.form.on("signing", "xml", function (frm) {
 });
 
 frappe.ui.form.on("signing", "qr", function (frm) {
-    let data_dict = JSON.parse(frm.doc.reporting_response || "{}");
+    let invoice_number = frm.doc.invoice_number
+    if (!invoice_number) {
+        frappe.msgprint(__('Please enter the invoice number'));
+        return;
+    }
+    let data_dict = JSON.parse(frm.doc.signing_response || "{}");
     // console.log('data_dict =', data_dict);
     if (!data_dict) {
-        frappe.msgprint(__('Please report the invoice first'));
+        frappe.msgprint(__('Please sign the invoice first'));
         return;
     }
 
-    if (data_dict.generatedQR) {
-        // console.log('data_dict.generatedQR =', data_dict.generatedQR);
-        // إنشاء عنصر HTML لعرض الـ QR
-        let qr_div = $('<div id="qrcode" style="padding: 10px; background: white; display: inline-block;"></div>').appendTo(frm.fields_dict.custom_qr_code_html.wrapper);
+    try {
+        let base64Data = data_dict.invoice;
+        let xmlContent = atob(base64Data);
 
-        // تحميل مكتبة QRCode.js
-        frappe.require("https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js", function () {
-            // إنشاء QR Code داخل العنصر الجديد
-            new QRCode(qr_div[0], {
-                text: data_dict.generatedQR,
-                width: 350,
-                height: 350,
-                correctLevel: QRCode.CorrectLevel.H,
-                useSVG: true
+        let parser = new DOMParser();
+        let xmlDoc = parser.parseFromString(xmlContent, "application/xml");
+        let qrElement = xmlDoc.querySelectorAll("cbc\\:EmbeddedDocumentBinaryObject, EmbeddedDocumentBinaryObject");
+        let qrValue = qrElement.length > 1 ? qrElement[1].textContent.trim() : null;
+        console.log(qrValue);
+        if (qrValue) {
+            // console.log('data_dict.generatedQR =', data_dict.generatedQR);
+            // إنشاء عنصر HTML لعرض الـ QR
+            let qr_div = $('<div id="qrcode" style="padding: 10px; background: white; display: inline-block;"></div>').appendTo(frm.fields_dict.custom_qr_code_html.wrapper);
+
+            // تحميل مكتبة QRCode.js
+            frappe.require("https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js", function () {
+                // إنشاء QR Code داخل العنصر الجديد
+                new QRCode(qr_div[0], {
+                    text: qrValue,
+                    width: 350,
+                    height: 350,
+                    correctLevel: QRCode.CorrectLevel.H,
+                    useSVG: true
+                });
+
             });
+            frm.toggle_display('custom_qr_code_html', true);
 
-        });
-        frm.toggle_display('custom_qr_code_html', true);
+        }
 
+    } catch (error) {
+        frappe.msgprint(__('Error decoding the XML file.'));
+        console.error('Decoding Error:', error);
     }
+
+    
+
 });
